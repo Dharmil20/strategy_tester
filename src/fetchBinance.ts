@@ -1,12 +1,12 @@
 import axios from "axios";
 
-interface OHLCParams {
+export interface OHLCParams {
   openTime: number;
   open: number;
   high: number;
   low: number;
   close: number;
-  Volume: number;
+  volume: number;
   closeTime: number;
 }
 
@@ -35,13 +35,13 @@ export async function fetchOHLCData(
   return resMap;
 }
 
-async function main() {
-  try {
-    const data = await fetchOHLCData();
-    console.log("Fetched data:", JSON.stringify(data.slice(0, 5), null, 2));
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-}
+// async function main() {
+//   try {
+//     const data = await fetchOHLCData();
+//     console.log("Fetched data:", JSON.stringify(data.slice(0, 5), null, 2));
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//   }
+// }
 
-main();
+// main();

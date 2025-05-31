@@ -7,7 +7,7 @@ this is the formula for ema
 smoothing is by default considered 2
 */
 
-export function calculateEMA(data: number[], period: number = 21): number[] {
+export function calculateEMA(data: number[], period: number): number[] {
   const weight = 2 / (1 + period);
   const ema: number[] = [];
   ema[0] = data[0];
@@ -27,7 +27,7 @@ rsi > 70 --> Overbought
 rsi crosses 70 --> sell
 */
 
-export function calculateRSI(data: number[], period: number = 14): number[] {
+export function calculateRSI(data: number[], period: number): number[] {
   const rsi: number[] = new Array(data.length).fill(NaN);
   const gains: number[] = [];
   const losses: number[] = [];
@@ -69,8 +69,8 @@ function main(){
     const testData = [44, 44.34, 44.09, 44.15, 43.61, 44.33, 44.83, 45.85, 46.08, 45.89, 46.03, 46.83, 46.69, 46.45, 46.59, 45.69];
 
     console.log("Test Data",testData);
-    console.log("EMA",calculateEMA(testData));
-    const rsiVal = calculateRSI(testData);
+    console.log("EMA",calculateEMA(testData, 21));
+    const rsiVal = calculateRSI(testData, 14);
     const val = rsiVal.filter(val => !isNaN(val));
     console.log("RSI", val);
 }

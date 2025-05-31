@@ -1,1 +1,1 @@
-{"root":["./src/calculations.ts","./src/fetchBinance.ts"],"version":"5.8.3"}
+{"root":["./src/action.ts","./src/calculations.ts","./src/fetchBinance.ts"],"version":"5.8.3"}
