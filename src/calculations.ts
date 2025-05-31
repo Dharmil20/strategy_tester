@@ -50,11 +50,11 @@ export function calculateRSI(data: number[], period: number): number[] {
   
   for(let i = period + 1; i < data.length; i++){
     const change: number = data[i] - data[i - 1];
-    gains.push(Math.max(change, 0));
-    losses.push(Math.max(-change, 0));
+    const currentGain = Math.max(change, 0);
+    const currentLoss = Math.max(-change, 0);
 
-    avgGain = ((avgGain * (period - 1)) + avgGain) / period;
-    avgLoss = ((avgLoss * (period - 1)) + avgLoss) / period;
+    avgGain = ((avgGain * (period - 1)) + currentGain) / period;
+    avgLoss = ((avgLoss * (period - 1)) + currentLoss) / period;
 
     if (avgLoss === 0) 
         rsi[i] = avgGain === 0 ? 50 : 100;
@@ -65,14 +65,14 @@ export function calculateRSI(data: number[], period: number): number[] {
   return rsi;
 }
 
-function main(){
-    const testData = [44, 44.34, 44.09, 44.15, 43.61, 44.33, 44.83, 45.85, 46.08, 45.89, 46.03, 46.83, 46.69, 46.45, 46.59, 45.69];
+// function main(){
+//     const testData = [44, 44.34, 44.09, 44.15, 43.61, 44.33, 44.83, 45.85, 46.08, 45.89, 46.03, 46.83, 46.69, 46.45, 46.59, 45.69];
 
-    console.log("Test Data",testData);
-    console.log("EMA",calculateEMA(testData, 21));
-    const rsiVal = calculateRSI(testData, 14);
-    const val = rsiVal.filter(val => !isNaN(val));
-    console.log("RSI", val);
-}
+//     console.log("Test Data",testData);
+//     console.log("EMA",calculateEMA(testData, 21));
+//     const rsiVal = calculateRSI(testData, 14);
+//     const val = rsiVal.filter(val => !isNaN(val));
+//     console.log("RSI", val);
+// }
 
-main();
+// main();
