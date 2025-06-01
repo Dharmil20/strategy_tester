@@ -24,10 +24,11 @@ async function runBacktester() {
     const allRsiTrades = [...rsiEmaTrades];
     const allMacdTrades = [...macdTrades];
     const allTrades = [...rsiEmaTrades, ...macdTrades];
+    const sortAllTrades = allTrades.sort((a,b) => a.entryTime - b.entryTime);
 
     csvTrades(allRsiTrades, 'RSI_trade_results.csv');
     csvTrades(allMacdTrades, 'MACD_trade_results.csv');
-    csvTrades(allTrades, 'trade_results.csv');
+    csvTrades(sortAllTrades, 'trade_results.csv');
 
     console.log("RSI Trades");
     console.table(
@@ -61,7 +62,7 @@ async function runBacktester() {
 
     console.log("All Trades");
     console.table(
-      allTrades.slice(0,5).map((trade) => ({
+      sortAllTrades.slice(0,5).map((trade) => ({
         "Entry Time": new Date(trade.entryTime).toLocaleString(),
         "Entry Price": trade.entryPrice,
         "Exit Time": trade.exitTime

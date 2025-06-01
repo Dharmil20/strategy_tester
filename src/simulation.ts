@@ -37,22 +37,22 @@ export function simulateTrades(signals: TradeSignal[], strategyName: string, ini
             trades.push(currTrade);
             currTrade = null;
         }
-        // Close the open trades at the end
-        if(currTrade && signals.length > 0){
-            const lastSignal = signals[signals.length - 1];
-            const pnl = ((lastSignal.price - currTrade.entryPrice) / currTrade.entryPrice) * initCapital;
-            currTrade.exitTime = lastSignal.time;
-            currTrade.exitPrice = lastSignal.price;
-            currTrade.pnl = pnl;
-            currTrade.status = pnl > 0 ? 'profit' : 'loss'
+    }
+    // Close the open trades at the end
+    if(currTrade && signals.length > 0){
+        const lastSignal = signals[signals.length - 1];
+        const pnl = ((lastSignal.price - currTrade.entryPrice) / currTrade.entryPrice) * initCapital;
+        currTrade.exitTime = lastSignal.time;
+        currTrade.exitPrice = lastSignal.price;
+        currTrade.pnl = pnl;
+        currTrade.status = pnl > 0 ? 'profit' : 'loss'
 
-            trades.push(currTrade);
-        }
+        trades.push(currTrade);
     }
     return trades;
 }
 
-// Example usage and test:
+// Example test:
 // const testSignals: TradeSignal[] = [
 //     { action: 'buy', price: 100, time: 1000, rsi: 41.645422369624846, ema: 103687.80232144438 },
 //     { action: 'sell', price: 110, time: 2000, rsi: 41.645422369624846, ema: 103687.80232144438  },
