@@ -1,5 +1,5 @@
 import { OHLCParams } from "./fetchBinance";
-import { calculateEMA, calculateRSI } from "./calculations";
+import { calculateEMA, calculateRSI, calculateMACD } from "./calculations";
 
 export interface TradeSignal {
   action: "buy" | "sell" | "hold";
@@ -47,4 +47,36 @@ export function rsiEmaStrategy(data: OHLCParams[]): TradeSignal[] {
     });
   }
   return signals;
+}
+
+export function macdStrategy(data: OHLCParams[]): TradeSignal[]{
+  const signals: TradeSignal[] = [];
+  const closingPrices = data.map(d => d.close);
+  const { macdLine, signalLine } = calculateMACD(closingPrices);
+
+  for(let i = 1; i < data.length; i++){
+    const prevMACD = macdLine[i - 1];
+    const currMACD = macdLine[i];
+    const prevSignal = signalLine[i - 1];
+    const currSignal = signalLine[i];
+
+    let action: "buy" | "sell" | "hold" = "hold";
+
+    // 12Ema line crossing 26Ema from bottom --> Buy 
+    if(prevMACD < prevSignal && currMACD > currSignal)
+      action = "buy";
+    // 12Ema line crossing 26Ema from above --> Sell 
+    else if (prevMACD > prevSignal && currMACD < currSignal)
+      action = "sell";
+    else
+      action = "hold";
+
+    signals.push({
+      action,
+      price: data[i].close,
+      time: data[i].closeTime,
+    })
+  }
+
+  return signals
 }

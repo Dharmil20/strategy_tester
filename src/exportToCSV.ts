@@ -2,11 +2,11 @@ import { Trade } from "./simulation";
 import { stringify } from "csv-stringify/sync";
 import fs from 'fs'
 
-export function csvTrades(trades: Trade[], filename: string = 'trade_results.csv'){
+export function csvTrades(trades: Trade[], filename: string){
     const csvData = trades.map(trade => ({
-        'Entry Time': new Date(trade.entryTime).toISOString(),
+        'Entry Time': new Date(trade.entryTime).toLocaleString(),
         'Entry Price': trade.entryPrice.toFixed(4),
-        'Exit Time': trade.exitTime ? new Date(trade.exitTime).toISOString() : '',
+        'Exit Time': trade.exitTime ? new Date(trade.exitTime).toLocaleString() : '',
         'Exit Price': trade.exitPrice || '',
         'Strategy': trade.strategy,
         'PnL': trade.pnl?.toFixed(4) || '',
