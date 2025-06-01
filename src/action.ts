@@ -26,13 +26,13 @@ export function rsiEmaStrategy(data: OHLCParams[]): TradeSignal[] {
 
         let action: "buy" | "sell" | "hold" = "hold";
 
-    // Check if we have valid RSI values (not NaN)
+    // Check if we have valid RSI values
     if (!isNaN(currRsi) && !isNaN(prevRsi)) {
-      // RSI oversold condition with bullish crossover and price above EMA
+      // Strong Buy when rsi >= 30 and prevRsi < 30 (meaning rsi crossing val 30) and currP > ema (Meaning price crossing above ema) 
       if (currRsi >= 45 && prevRsi < 45 && currPrice > currEma) {
         action = "buy";
       }
-      // RSI overbought condition with bearish crossover OR price below EMA
+      // Strong Buy when rsi >= 30 and prevRsi < 30 (meaning rsi crossing val 30) and currP > ema (Meaning price crossing above ema) 
       else if ((currRsi <= 70 && prevRsi > 70) || currPrice < currEma) {
         action = "sell";
       }

@@ -65,6 +65,25 @@ export function calculateRSI(data: number[], period: number): number[] {
   return rsi;
 }
 
+/*
+MACD is two lines drawn on the price chart
+one indicating 12 period ema and other 26 period ema
+when the 12 period ema line crosses the 26 period ema line from the bottom --> Buy
+when the 12 period ema line crosses the 26 period ema line from the top --> Sell
+MACD = calculateEMA(12) - calculateEMA(26)
+*/
+
+export function calculateMACD(data: number[], signalPeriod: number = 9){
+  const ema12: number[] = calculateEMA(data, 12);
+  const ema26: number[] = calculateEMA(data, 26);
+
+  const macdLine = ema12.map((val, i) => val - ema26[i]);
+  const signalLine = calculateEMA(macdLine, signalPeriod);
+
+  return{ macdLine, signalLine }
+}
+
+
 // function main(){
 //     const testData = [44, 44.34, 44.09, 44.15, 43.61, 44.33, 44.83, 45.85, 46.08, 45.89, 46.03, 46.83, 46.69, 46.45, 46.59, 45.69];
 
@@ -73,6 +92,7 @@ export function calculateRSI(data: number[], period: number): number[] {
 //     const rsiVal = calculateRSI(testData, 14);
 //     const val = rsiVal.filter(val => !isNaN(val));
 //     console.log("RSI", val);
+//     console.log("MACD", calculateMACD(testData));
 // }
 
 // main();
