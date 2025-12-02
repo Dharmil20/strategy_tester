@@ -1,1 +1,1 @@
-{"root":["./src/action.ts","./src/calculations.ts","./src/exportToCSV.ts","./src/fetchBinance.ts","./src/main.ts","./src/simulation.ts"],"version":"5.8.3"}
+{"root":["./src/action.ts","./src/calculations.ts","./src/exporttocsv.ts","./src/fetchbinance.ts","./src/main.ts","./src/simulation.ts"],"version":"5.8.3"}

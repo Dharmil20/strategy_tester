@@ -19,7 +19,7 @@ If not installed, visit: [Installing Node.js and npm](https://docs.npmjs.com/dow
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/Dharmil20/strategy_tester.git
    cd strategy_tester
    ```
 
